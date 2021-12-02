@@ -2,7 +2,7 @@ import io
 
 from advent.days.day01 import first, nwise, second
 
-input = io.StringIO("""199
+data = """199
 200
 208
 210
@@ -11,11 +11,11 @@ input = io.StringIO("""199
 240
 269
 260
-263""")
+263"""
 
 
 def test_first():
-    assert first(input) == 7
+    assert first(io.StringIO(data)) == 7
 
 
 def test_nwise():
@@ -27,4 +27,4 @@ def test_nwise():
 
 
 def test_second():
-    assert second(input) == 5
+    assert second(io.StringIO(data)) == 5

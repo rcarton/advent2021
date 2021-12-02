@@ -11,42 +11,16 @@ class Position:
 
 UpdatePosFn = Callable[[Position, int], Position]
 
-
-def up(pos: Position, value: int) -> Position:
-    return replace(pos, depth=pos.depth - value)
-
-
-def down(pos: Position, value: int) -> Position:
-    return replace(pos, depth=pos.depth + value)
-
-
-def forward(pos: Position, value: int) -> Position:
-    return replace(pos, horizontal=pos.horizontal + value)
-
-
 COMMANDS: Dict[str, UpdatePosFn] = {
-    'up': up,
-    'down': down,
-    'forward': forward,
+    'up': lambda pos, value: replace(pos, depth=pos.depth - value),
+    'down': lambda pos, value: replace(pos, depth=pos.depth + value),
+    'forward': lambda pos, value: replace(pos, horizontal=pos.horizontal + value),
 }
 
-
-def up2(pos: Position, value: int) -> Position:
-    return replace(pos, aim=pos.aim - value)
-
-
-def down2(pos: Position, value: int) -> Position:
-    return replace(pos, aim=pos.aim + value)
-
-
-def forward2(pos: Position, value: int) -> Position:
-    return replace(pos, horizontal=pos.horizontal + value, depth=pos.depth + pos.aim * value)
-
-
 COMMANDS_v2: Dict[str, UpdatePosFn] = {
-    'up': up2,
-    'down': down2,
-    'forward': forward2,
+    'up': lambda pos, value: replace(pos, aim=pos.aim - value),
+    'down': lambda pos, value: replace(pos, aim=pos.aim + value),
+    'forward': lambda pos, value: replace(pos, horizontal=pos.horizontal + value, depth=pos.depth + pos.aim * value),
 }
 
 
