@@ -3,6 +3,7 @@ import itertools as it
 
 T = TypeVar('T')
 
+# row, col
 Coord = Tuple[int, int]
 
 
@@ -21,10 +22,10 @@ class Matrix(Generic[T]):
         return 0 <= coord[0] < self.height and 0 <= coord[1] < self.width
 
     def __get_index(self, coord: Coord):
-        x, y = coord
+        row, col = coord
         if not self.is_valid_coord(coord):
             raise IndexError(f'Coord out of range {coord}')
-        return x * self.width + y
+        return row * self.width + col
 
     def __getitem__(self, coord: Coord) -> T:
         return self.data[self.__get_index(coord)]
@@ -46,8 +47,8 @@ class Matrix(Generic[T]):
                 yield x, y
 
     def neighbor_coords(self, coord: Coord) -> List[Coord]:
-        x, y = coord
-        coords = [(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)]
+        row, col = coord
+        coords = [(row - 1, col), (row + 1, col), (row, col - 1), (row, col + 1)]
         return [c for c in coords if self.is_valid_coord(c)]
 
     def neighbors(self, coord: Coord) -> List[T]:
