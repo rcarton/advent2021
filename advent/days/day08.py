@@ -1,5 +1,5 @@
 import itertools as it
-from collections import Counter, defaultdict, deque
+from collections import Counter, defaultdict
 from typing import TextIO, Dict, Set, Tuple, List, Iterator
 
 DIGITS: Dict[int, Set[str]] = {
@@ -72,7 +72,7 @@ class SegmentPuzzle:
 
         # Second heuristic, could use the count of segments per digit
         # Not necessary because at this point there are a total of 16 possible candidates, which we can brute force
-        # through
+        # through quickly
 
         # At this point we have narrowed down self.candidates: most segments have 1 or 2 possible translations
         possible_solutions: List[Solved] = self.get_possible_solutions(self.candidates, {})
