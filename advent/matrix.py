@@ -46,10 +46,27 @@ class Matrix(Generic[T]):
             for y in range(self.width):
                 yield x, y
 
-    def neighbor_coords(self, coord: Coord) -> List[Coord]:
+    def neighbor_coords(self, coord: Coord, include_diagonals: bool = False) -> List[Coord]:
         row, col = coord
         coords = [(row - 1, col), (row + 1, col), (row, col - 1), (row, col + 1)]
+        if include_diagonals:
+            coords += [(row - 1, col - 1), (row - 1, col + 1), (row + 1, col - 1), (row + 1, col + 1)]
+
         return [c for c in coords if self.is_valid_coord(c)]
 
-    def neighbors(self, coord: Coord) -> List[T]:
-        return [self[c] for c in self.neighbor_coords(coord) if self.is_valid_coord(c)]
+    def neighbors(self, coord: Coord, include_diagonals: bool = False) -> List[T]:
+        return [self[c] for c in self.neighbor_coords(coord, include_diagonals) if self.is_valid_coord(c)]
+
+    def nb8(self, coord: Coord) -> List[T]:
+        return self.neighbors(coord, include_diagonals=True)
+
+    def nbc8(self, coord: Coord) -> List[Coord]:
+        return self.neighbor_coords(coord, include_diagonals=True)
+
+    def __str__(self):
+        out = ''
+        for row in range(self.height):
+            for col in range(self.width):
+                out += str(self[row, col])
+            out += '\n'
+        return out[:-1]
