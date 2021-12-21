@@ -1,4 +1,4 @@
-from typing import Sequence, Union
+from typing import Sequence, Union, Optional
 
 
 def binseq_to_int(binseq: Sequence[Union[str, int, bool]]) -> int:
@@ -11,3 +11,8 @@ def binseq_to_int(binseq: Sequence[Union[str, int, bool]]) -> int:
 
     """
     return sum(int(j) << i for i, j in enumerate(reversed(binseq)))
+
+
+def add_wrap(val: int, incr: int, max_val: int, start_at_one: Optional[bool] = True):
+    """Add incr to val, and wrap around at 1 if val+incr > max_val"""
+    return (val + incr - 1) % max_val + (1 if start_at_one else 0)
